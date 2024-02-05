@@ -31,7 +31,7 @@ const Tasks = [
         "title": "Data Handling",
         "description":
             "Integrate a web API with a third-party database using secure methods, focusing on seamless data exchange and data integrity.",
-        "tags": ["web", "Python", "Security"],
+        "tags": ["web", "Python", "Artificial"],
         "priority": "High",
         "isFavorite": false,
     }
