@@ -5,27 +5,34 @@ import TaskList from './TaskList';
 import AddTaskModel from './AddTaskModel';
 import { TasksContext } from './alltask/index.js';
 import NoTasksFound from '../NoTaskFound.jsx';
-import { getAllTask } from './AllTask.js';
+// import { getAllTask } from './AllTask.js';
 
 const TaskBoard = () => {
 
     // const { AllTask, SetAllTask } = useContext(TasksContext)
-    const Tasks = getAllTask()
-    const [AllTask, SetAllTask] = useState(Tasks)
+    // const Tasks = getAllTask()
+    // const [AllTask, SetAllTask] = useState(Tasks)
 
-    const { state, dispatch} = useContext(TasksContext)
+    const { state, dispatch } = useContext(TasksContext)
+    console.log(state.taskData)
+
     console.log(state)
     const [ShowAddModal, setShowAddModal] = useState(false)
-    const [EditData,setEditData] = useState(null)
+    const [EditData, setEditData] = useState(null)
 
     // const [isFavorite,SetFavorite]= useState(false)
     const handleDeleteAllClick = () => {
         // AllTask.length = 0;
         // SetAllTask([...AllTask])
+        const isConfirmed = window.confirm('Are you sure you want to delete this task?');
+        if (isConfirmed) {
+            // SetAllTask(DeleteData)
             dispatch({ type: 'DELETE_ALL_TASKS' });
-        
-        
-        
+
+        }
+
+
+
     }
     const handleFavourite = (id) => {
         dispatch({
@@ -42,7 +49,7 @@ const TaskBoard = () => {
         //         }
         //     })
         // )
-        
+
     }
     const handleEditTask = (task) => {
         setEditData(task)
@@ -51,6 +58,7 @@ const TaskBoard = () => {
     const handleDeleteTask = (id) => {
         const isConfirmed = window.confirm('Are you sure you want to delete this task?');
         // const DeleteData = AllTask.filter((task) => (task.id !== id))
+        console.log(isConfirmed)
         if (isConfirmed) {
             // SetAllTask(DeleteData)
             dispatch({
@@ -64,17 +72,17 @@ const TaskBoard = () => {
         setEditData(null)
 
     }
-    const handleSaveTask=(newtask,isAdd)=>{
-        if(isAdd){
+    const handleSaveTask = (newtask, isAdd) => {
+        if (isAdd) {
             dispatch({
                 type: 'NEW_ADD_TASK',
                 payload: newtask
             });
             // SetAllTask([...AllTask,newtask])
-       handleClose();
+            handleClose();
 
         }
-        else{
+        else {
             dispatch({
                 type: 'EDIT_TASK',
                 payload: newtask
@@ -88,7 +96,7 @@ const TaskBoard = () => {
             //     return task
             // })
             // )
-       handleClose();
+            handleClose();
 
 
         }
@@ -116,9 +124,13 @@ const TaskBoard = () => {
                 </div>
 
                 {
-                   state.taskData === 0 ?
+                    state.taskData.length === 0 ?
                         <NoTasksFound /> :
-                        <TaskList onDelete={handleDeleteTask} onEdit={handleEditTask} onFav={handleFavourite} AllTask={ state.taskData} />}
+                        <TaskList
+                            onDelete={handleDeleteTask}
+                            onEdit={handleEditTask}
+                            onFav={handleFavourite}
+                            AllTask={state.taskData} />}
             </div>
 
         </div>

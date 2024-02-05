@@ -2,6 +2,10 @@ import React from 'react';
 import { FaStar } from "react-icons/fa";
 
 const TaskList = ({AllTask,onFav,onEdit,onDelete}) => {
+    const getRandomColor = () => {
+        const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
+        return randomColor;
+    };
     return (
         <div className="overflow-auto">
             <table className="table-fixed overflow-auto xl:w-full">
@@ -53,7 +57,8 @@ const TaskList = ({AllTask,onFav,onEdit,onDelete}) => {
                                 <ul className="flex justify-center gap-1.5 flex-wrap">
                                     {task.tags.map((tag) => (
                                         <li key={tag}>
-                                            <span className="inline-block h-5 whitespace-nowrap rounded-[45px] bg-[#00D991A1] px-2.5 text-sm capitalize text-[#F4F5F6]">
+                                              <span className="inline-block h-5 whitespace-nowrap rounded-[45px] px-2.5 text-sm capitalize text-[#F4F5F6]"
+                                                style={{ backgroundColor: getRandomColor() }}>
                                                 {tag}
                                             </span>
                                         </li>

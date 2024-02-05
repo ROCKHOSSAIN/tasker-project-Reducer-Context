@@ -6,10 +6,10 @@ const initialState = {
   
   const taskReducer = (state, action) => {
     switch (action.type) {
-      case 'ADD_TASK':
-        return {
-          taskData: [...state.taskData, action.payload],
-        };
+      // case 'ADD_TASK':
+      //   return {
+      //     taskData: [...state.taskData, action.payload],
+      //   };
   
       case 'DELETE_ALL_TASKS':
         return {
@@ -41,6 +41,15 @@ const initialState = {
         return {
           taskData: state.taskData.filter((item) => item.id !== action.payload.id),
         };
+        case 'SET_FILTERED_TASKS':
+          return {
+            taskData: action.payload,
+            
+          };
+        case 'NO_DATA':
+          return {
+            taskData: initialTask,
+          };
   
       default:
         return state;

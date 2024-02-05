@@ -1,20 +1,31 @@
 import  { useContext, useState } from 'react';
 import { TasksContext } from '../Task/alltask/index.js';
 const SearchTask = () => {
-    const { AllTask, SetAllTask } = useContext(TasksContext);
+    const { state, dispatch} = useContext(TasksContext)
+
+    // const { AllTask, SetAllTask } = useContext(TasksContext);
     const [searchItem, setSearchItem] = useState("");
 
     const handleSearch = (e) => {
         e.preventDefault();
         if(searchItem.length === 0){
-            SetAllTask([...AllTask]);
+            dispatch({ type: 'NO_DATA' });
         }else{
-            const filtered = AllTask.filter((task) =>
+            const filtered = state.taskData.filter((task) =>
             task.title.toLowerCase().includes(searchItem.toLowerCase())
             );
-            console.log(filtered);
-            SetAllTask([...filtered]);
+            dispatch({ type: 'SET_FILTERED_TASKS', payload: filtered });
         } 
+        // e.preventDefault();
+        // if(searchItem.length === 0){
+        //     SetAllTask([...AllTask]);
+        // }else{
+        //     const filtered = AllTask.filter((task) =>
+        //     task.title.toLowerCase().includes(searchItem.toLowerCase())
+        //     );
+        //     console.log(filtered);
+        //     SetAllTask([...filtered]);
+        // } 
     };
 
     return (
